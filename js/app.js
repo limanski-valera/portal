@@ -373,7 +373,6 @@
             this.options.init ? this.initPopups() : null;
         }
         initPopups() {
-            this.popupLogging(`Прокинувся`);
             this.eventsPopup();
         }
         eventsPopup() {
@@ -389,7 +388,7 @@
                         this._selectorOpen = true;
                         this.open();
                         return;
-                    } else this.popupLogging(`Йой, не заповнено атрибут у ${buttonOpen.classList}`);
+                    }
                     return;
                 }
                 const buttonClose = e.target.closest(`[${this.options.attributeCloseButton}]`);
@@ -474,8 +473,7 @@
                             popup: this
                         }
                     }));
-                    this.popupLogging(`Відкрив попап`);
-                } else this.popupLogging(`Йой, такого попапу немає. Перевірте коректність введення. `);
+                }
             }
         }
         close(selectorValue) {
@@ -509,7 +507,6 @@
             setTimeout((() => {
                 this._focusTrap();
             }), 50);
-            this.popupLogging(`Закрив попап`);
         }
         _getHash() {
             if (this.options.hashSettings.location) this.hash = this.targetOpen.selector.includes("#") ? this.targetOpen.selector : this.targetOpen.selector.replace(".", "#");
@@ -542,9 +539,6 @@
         _focusTrap() {
             const focusable = this.previousOpen.element.querySelectorAll(this._focusEl);
             if (!this.isOpen && this.lastFocusEl) this.lastFocusEl.focus(); else focusable[0].focus();
-        }
-        popupLogging(message) {
-            this.options.logging ? FLS(`[Попапос]: ${message}`) : null;
         }
     }
     flsModules.popup = new Popup({});
@@ -3915,7 +3909,6 @@
         }
         scrollWatcherConstructor(items) {
             if (items.length) {
-                this.scrollWatcherLogging(`Прокинувся, стежу за об'єктами (${items.length})...`);
                 let uniqParams = uniqArray(Array.from(items).map((function(item) {
                     return `${item.dataset.watchRoot ? item.dataset.watchRoot : null}|${item.dataset.watchMargin ? item.dataset.watchMargin : "0px"}|${item.dataset.watchThreshold ? item.dataset.watchThreshold : 0}`;
                 })));
@@ -3935,16 +3928,13 @@
                     let configWatcher = this.getScrollWatcherConfig(paramsWatch);
                     this.scrollWatcherInit(groupItems, configWatcher);
                 }));
-            } else this.scrollWatcherLogging("Сплю, немає об'єктів для стеження. ZzzZZzz");
+            }
         }
         getScrollWatcherConfig(paramsWatch) {
             let configWatcher = {};
-            if (document.querySelector(paramsWatch.root)) configWatcher.root = document.querySelector(paramsWatch.root); else if (paramsWatch.root !== "null") this.scrollWatcherLogging(`Эмм... батьківського об'єкта ${paramsWatch.root} немає на сторінці`);
+            if (document.querySelector(paramsWatch.root)) configWatcher.root = document.querySelector(paramsWatch.root); else if (paramsWatch.root !== "null") ;
             configWatcher.rootMargin = paramsWatch.margin;
-            if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) {
-                this.scrollWatcherLogging(`йой, налаштування data-watch-margin потрібно задавати в PX або %`);
-                return;
-            }
+            if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) return;
             if (paramsWatch.threshold === "prx") {
                 paramsWatch.threshold = [];
                 for (let i = 0; i <= 1; i += .005) paramsWatch.threshold.push(i);
@@ -3964,20 +3954,10 @@
             items.forEach((item => this.observer.observe(item)));
         }
         scrollWatcherIntersecting(entry, targetElement) {
-            if (entry.isIntersecting) {
-                !targetElement.classList.contains("_watcher-view") ? targetElement.classList.add("_watcher-view") : null;
-                this.scrollWatcherLogging(`Я бачу ${targetElement.classList}, додав клас _watcher-view`);
-            } else {
-                targetElement.classList.contains("_watcher-view") ? targetElement.classList.remove("_watcher-view") : null;
-                this.scrollWatcherLogging(`Я не бачу ${targetElement.classList}, прибрав клас _watcher-view`);
-            }
+            if (entry.isIntersecting) !targetElement.classList.contains("_watcher-view") ? targetElement.classList.add("_watcher-view") : null; else targetElement.classList.contains("_watcher-view") ? targetElement.classList.remove("_watcher-view") : null;
         }
         scrollWatcherOff(targetElement, observer) {
             observer.unobserve(targetElement);
-            this.scrollWatcherLogging(`Я перестав стежити за ${targetElement.classList}`);
-        }
-        scrollWatcherLogging(message) {
-            this.config.logging ? FLS(`[Спостерігач]: ${message}`) : null;
         }
         scrollWatcherCallback(entry, observer) {
             const targetElement = entry.target;
