@@ -163,6 +163,75 @@ body {
   transition: background-color 0.3s;
 }
 
+.button_download {
+  -webkit-animation: donwnload-button 2s infinite linear;
+          animation: donwnload-button 2s infinite linear;
+}
+
+@-webkit-keyframes donwnload-button {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  5% {
+    -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(-1deg);
+            transform: rotate(-1deg);
+  }
+
+  15% {
+    -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(-1deg);
+            transform: rotate(-1deg);
+  }
+
+  25% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+}
+
+@keyframes donwnload-button {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  5% {
+    -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(-1deg);
+            transform: rotate(-1deg);
+  }
+
+  15% {
+    -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(-1deg);
+            transform: rotate(-1deg);
+  }
+
+  25% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+}
+
 input[type=text],
 input[type=email],
 input[type=tel],
