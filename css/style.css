@@ -675,8 +675,8 @@ body::after {
   position: relative;
   overflow: hidden;
   height: 0;
-  padding-bottom: 181.15942%;
-  /* 500/276 */
+  padding-bottom: 177.777778%;
+  /* 3840/2160 */
 }
 
 .testimonials__video-wrapper video,
@@ -688,10 +688,10 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: left;
-     object-position: left;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
 }
 
 .title {
